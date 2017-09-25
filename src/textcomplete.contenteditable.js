@@ -84,6 +84,10 @@ export default class extends Editor {
 
   /** @private */
   onInput(_: Event) {
+    if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
+      // Safari behaves much stranger than Chrome and Firefox.
+      return
+    }
     this.emitChangeEvent()
   }
 

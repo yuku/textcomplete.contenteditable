@@ -1455,6 +1455,10 @@ var _class = function (_Editor) {
   }, {
     key: "onInput",
     value: function onInput(_) {
+      if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
+        // Safari behaves much stranger than Chrome and Firefox.
+        return;
+      }
       this.emitChangeEvent();
     }
 
