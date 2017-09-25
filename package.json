@@ -1,6 +1,6 @@
 {
   "name": "textcomplete.contenteditable",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "A textcomplete editor for content editable",
   "main": "lib/textcomplete.contenteditable.js",
   "scripts": {
