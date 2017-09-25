@@ -5,5 +5,5 @@ lib
 node_modules
 npm-debug.log
 powered-test
-textcomplete.codemirror
-/textcomplete.codemirror-*
+textcomplete.contenteditable
+/textcomplete.contenteditable-*
