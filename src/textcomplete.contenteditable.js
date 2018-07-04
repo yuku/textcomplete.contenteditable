@@ -38,11 +38,23 @@ export default class extends Editor {
       const replace = searchResult.replace(before, after)
       if (Array.isArray(replace)) {
         const range = this.getRange()
-        range.selectNode(range.startContainer)
+        range.selectNode(range.startContainer.firstChild) ? range.startContainer.firstChild : range.startContainer;
+
+        let hml = `${replace[0]}${repalce[1]}&nbsp;`;
+
         this.document.execCommand("insertText", false, replace[0] + replace[1])
         range.detach()
-        const newRange = this.getRange()
-        newRange.setStart(newRange.startContainer, replace[0].length)
+
+        const newRange = this.getRange();
+
+        const cleanstring = replace[0].replace(/<\/?[^>]+(>|$)/g, "");
+        const atEnd = cleanstring.trim().endsWith(newRange.startContainer.textContent);
+
+        if (atEnd) {
+            newRange.setStart(newRange.startContainer, newRange.startContainer.length);
+        } else {
+            newRange.setStart(newRange.startContainer, 1);
+        }
         newRange.collapse(true)
       }
     }

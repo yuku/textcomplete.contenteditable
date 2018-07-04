@@ -1407,11 +1407,23 @@ var _class = function (_Editor) {
         var replace = searchResult.replace(before, after);
         if (Array.isArray(replace)) {
           var range = this.getRange();
-          range.selectNode(range.startContainer);
+          range.selectNode(range.startContainer.firstChild) ? range.startContainer.firstChild : range.startContainer;
+
+          var hml = "" + replace[0] + repalce[1] + "&nbsp;";
+
           this.document.execCommand("insertText", false, replace[0] + replace[1]);
           range.detach();
+
           var newRange = this.getRange();
-          newRange.setStart(newRange.startContainer, replace[0].length);
+
+          var cleanstring = replace[0].replace(/<\/?[^>]+(>|$)/g, "");
+          var atEnd = cleanstring.trim().endsWith(newRange.startContainer.textContent);
+
+          if (atEnd) {
+            newRange.setStart(newRange.startContainer, newRange.startContainer.length);
+          } else {
+            newRange.setStart(newRange.startContainer, 1);
+          }
           newRange.collapse(true);
         }
       }
