@@ -1408,6 +1408,7 @@ var _class = function (_Editor) {
         if (Array.isArray(replace)) {
           var range = this.getRange();
           range.selectNode(range.startContainer);
+          range.deleteContents();
           this.document.execCommand("insertHTML", false, replace[0] + replace[1]);
           range.detach();
           var newRange = this.getRange();
@@ -1421,6 +1422,9 @@ var _class = function (_Editor) {
     value: function getCursorOffset() {
       var range = this.getRange();
       var rangeRects = range.getBoundingClientRect();
+      if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
+        rangeRects = range.getClientRects()[0];
+      }
 
       var docRects = this.document.body.getBoundingClientRect();
       var container = range.startContainer;
@@ -1455,10 +1459,10 @@ var _class = function (_Editor) {
   }, {
     key: "onInput",
     value: function onInput(_) {
-      if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
-        // Safari behaves much stranger than Chrome and Firefox.
-        return;
-      }
+      // if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
+      // Safari behaves much stranger than Chrome and Firefox.
+      // return
+      // }
       this.emitChangeEvent();
     }
 
