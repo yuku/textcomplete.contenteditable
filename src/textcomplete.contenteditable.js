@@ -43,7 +43,7 @@ export default class extends Editor {
         this.document.execCommand("insertHTML", false, replace[0] + replace[1])
         range.detach()
         const newRange = this.getRange()
-        newRange.setStart(newRange.startContainer, replace[0].replace(/<.*?>/g, '').length)
+        newRange.setStart(newRange.startContainer, newRange.startContainer.length)
         newRange.collapse(true)
       }
     }
