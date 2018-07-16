@@ -1408,10 +1408,10 @@ var _class = function (_Editor) {
         if (Array.isArray(replace)) {
           var range = this.getRange();
           range.selectNode(range.startContainer);
-          this.document.execCommand("insertText", false, replace[0] + replace[1]);
+          this.document.execCommand("insertHTML", false, replace[0] + replace[1]);
           range.detach();
           var newRange = this.getRange();
-          newRange.setStart(newRange.startContainer, replace[0].length);
+          newRange.setStart(newRange.startContainer, replace[0].replace(/<.*?>/g, '').length);
           newRange.collapse(true);
         }
       }

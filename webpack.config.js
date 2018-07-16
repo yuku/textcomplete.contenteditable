@@ -21,7 +21,7 @@ const defaultConfig = {
   },
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: 'textcomplete.codemirror.js',
+    filename: 'textcomplete.contenteditable.js',
   },
 };
 
@@ -33,7 +33,7 @@ module.exports = function (env) {
   if (env === 'min') {
     return webpackMerge(defaultConfig, {
       output: {
-        filename: 'textcomplete.codemirror.min.js',
+        filename: 'textcomplete.contenteditable.min.js',
       },
       plugins: [
         new webpack.DefinePlugin({
