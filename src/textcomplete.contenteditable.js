@@ -63,7 +63,7 @@ export default class extends Editor {
     const top = rangeRects.top - docRects.top + lineHeight
     return this.el.dir !== "rtl"
       ? { left, lineHeight, top }
-      : { right: left, lineHeight, top }
+      : { right: document.documentElement.clientWidth - left, lineHeight, top }
   }
 
   getBeforeCursor() {
