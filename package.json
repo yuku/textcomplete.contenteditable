@@ -69,7 +69,7 @@
     "webpack-merge": "^4.1.0"
   },
   "peerDependencies": {
-    "textcomplete": "^0.14.2"
+    "textcomplete": "^0.x"
   },
   "babel": {
     "presets": [
