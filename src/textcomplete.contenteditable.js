@@ -39,10 +39,11 @@ export default class extends Editor {
       if (Array.isArray(replace)) {
         const range = this.getRange()
         range.selectNode(range.startContainer)
-        this.document.execCommand("insertText", false, replace[0] + replace[1])
+        range.deleteContents()
+        this.document.execCommand("insertHTML", false, replace[0] + replace[1])
         range.detach()
         const newRange = this.getRange()
-        newRange.setStart(newRange.startContainer, replace[0].length)
+        newRange.setStart(newRange.startContainer, newRange.startContainer.length)
         newRange.collapse(true)
       }
     }
@@ -50,7 +51,10 @@ export default class extends Editor {
 
   getCursorOffset() {
     const range = this.getRange()
-    const rangeRects = range.getBoundingClientRect()
+    let rangeRects = range.getBoundingClientRect()
+    if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
+      rangeRects = range.getClientRects()[0];
+    }
 
     const docRects = this.document.body.getBoundingClientRect()
     const container = range.startContainer
@@ -84,10 +88,10 @@ export default class extends Editor {
 
   /** @private */
   onInput(_: Event) {
-    if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
+    // if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
       // Safari behaves much stranger than Chrome and Firefox.
-      return
-    }
+      // return
+    // }
     this.emitChangeEvent()
   }
 
